@@ -29,5 +29,17 @@ app.listen(3000, function() {
 });
 
 app.get('/', function(req, res) {
-  res.render('index');
+  //PG Connect
+  pg.connect(connect, function(err, client, done) {
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('SELECT * FROM recipes', function(err, result) {
+      if (err) {
+        return console.error('error running query', err);
+      }
+      res.render('index', { recipes: result.rows });
+      done();
+    });
+  });
 });
