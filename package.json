@@ -13,7 +13,7 @@
     "dustjs-helpers": "*",
     "dustjs-linkedin": "*",
     "express": "*",
-    "pg": "6.0.0"
+    "pg": "6.0.5"
   },
   "author": "Satyendra Gupta",
   "license": "ISC"
