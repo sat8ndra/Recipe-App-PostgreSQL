@@ -7,7 +7,7 @@ pg = require('pg');
 app = express();
 
 //DB Connect String
-var connect = 'postgres://medibit:123456@localhost/recipebookdb';
+var connect = 'postgres://medibit:PASSWORD_HERE@localhost/recipebookdb';
 
 //Assign Dust Engine to Dust files
 app.engine('dust', cons.dust);
