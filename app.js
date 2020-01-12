@@ -43,3 +43,45 @@ app.get('/', function(req, res) {
     });
   });
 });
+
+app.post('/add', function(req, res) {
+  //PG Connect
+  pg.connect(connect, function(err, client, done) {
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query(
+      'INSERT INTO recipes(name, ingredients, directions) VALUES($1, $2, $3)',
+      [req.body.name, req.body.ingredients, req.body.directions]
+    );
+    done();
+    res.redirect('/');
+  });
+});
+
+app.post('/edit', function(req, res) {
+  //PG Connect
+  pg.connect(connect, function(err, client, done) {
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query(
+      'UPDATE recipes SET name=$1, ingredients=$2, directions=$3 WHERE id=$4',
+      [req.body.name, req.body.ingredients, req.body.directions, req.body.id]
+    );
+    done();
+    res.send(200);
+  });
+});
+
+app.delete('/delete/:id', function(req, res) {
+  //PG Connect
+  pg.connect(connect, function(err, client, done) {
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('DELETE FROM recipes where id= $1', [req.params.id]);
+    done();
+    res.send(200);
+  });
+});
